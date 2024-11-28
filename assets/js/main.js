@@ -1,8 +1,4 @@
-/*
-	Big Picture by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
+
 
 (function($) {
 
@@ -228,48 +224,129 @@ $('a[href^="#"]').on('click', function(e) {
     });
 });
 
-$(window).on('scroll', function () {
-    const skillsSectionTop = $('#skills').offset().top;
-    const scrollPosition = $(window).scrollTop() + $(window).height() * 0.8;
+document.addEventListener("DOMContentLoaded", () => {
+    const skills = document.querySelectorAll(".skill");
+    const circles = document.querySelectorAll(".circle");
 
-    if (scrollPosition > skillsSectionTop) {
-        $('#skills-container').css({
-            'opacity': '1', // Make the container visible
-            'transform': 'translateX(0)' // Reset any sliding
-        });
-
-        $('.skill-icon').each(function (index) {
-            $(this).css({
-                'display': 'block', // Ensure visibility
-                'opacity': '1',
-                'animation': 'popIn 0.5s ease forwards',
-                'animation-delay': `${index * 0.1}s`
+    // Observer for popping animation
+    const skillsObserver = new IntersectionObserver(
+        (entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("in-view");
+                    observer.unobserve(entry.target);
+                }
             });
-        });
-    }
+        },
+        { threshold: 0.5 }
+    );
+
+    skills.forEach((skill) => skillsObserver.observe(skill));
+
+    // Observer for progress bar animation
+    const progressObserver = new IntersectionObserver(
+        (entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const circle = entry.target;
+                    const progress = parseInt(circle.getAttribute("data-progress"), 10);
+                    console.log(`Progress: ${progress}`);
+                    requestAnimationFrame(() => {
+                        circle.style.setProperty("--progress", progress);
+                    });
+                    observer.unobserve(circle);
+                }
+            });
+        },
+        { threshold: 0.5 }
+    );
+
+    circles.forEach((circle) => progressObserver.observe(circle));
 });
 
 
 
 
 
+document.addEventListener("DOMContentLoaded", () => {
+    // Function to toggle visibility of the experience box
+    document.querySelectorAll(".logo").forEach((logo) => {
+        logo.addEventListener("click", () => {
+            const position = logo.getAttribute("data-position");
+            const targetBox = document.querySelector(`.experience-box.${position === "top" ? "right" : "left"}`);
+
+            // Toggle visibility of the corresponding experience box
+            if (targetBox.classList.contains("in-view")) {
+                targetBox.classList.remove("in-view"); // Hide the box
+            } else {
+                targetBox.classList.add("in-view"); // Show the box
+            }
+        });
+    });
+
+    // Function to check if an element is in the viewport
+    function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.bottom >= 0
+        );
+    }
+
+    // Function to add 'in-view' class when elements are in the viewport
+    function handleScroll() {
+        const boxes = document.querySelectorAll(".experience-box");
+        boxes.forEach((box) => {
+            if (isElementInViewport(box)) {
+                box.classList.add("in-view"); // Trigger sliding animation
+            } else {
+                // Optionally remove class when out of view
+                box.classList.remove("in-view");
+            }
+        });
+    }
+
+    // Attach scroll listener
+    window.addEventListener("scroll", handleScroll);
+    // Call handleScroll on initial load to check elements already in view
+    handleScroll();
+});
+
+
 // Function to check if an element is in the viewport
+
 function isElementInViewport(el) {
+
     const rect = el.getBoundingClientRect();
+
     return (
+
         rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+
         rect.bottom >= 0
+
     );
+
 }
 
+
+
 // Function to add 'in-view' class when elements are in the viewport
+
 function handleScroll() {
+
     const boxes = document.querySelectorAll('.experience-box');
+
     boxes.forEach(box => {
+
         if (isElementInViewport(box)) {
+
             box.classList.add('in-view'); // Trigger sliding animation
+
         }
+
     });
+
 }
 
 // Add scroll event listener to the window
