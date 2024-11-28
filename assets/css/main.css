@@ -2313,6 +2313,8 @@ input, select, textarea {
 		background-size: contain;  /* Keeps the image's aspect ratio */
 
 	}
+	
+	
 
 /* One */
 
@@ -2453,94 +2455,216 @@ input, select, textarea {
 .experience-line {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centers the line vertically */
+    align-items: center;
     position: relative;
     padding: 20px 0;
-    min-height: 100vh; /* Ensure full height */
+    min-height: 100vh;
 }
 
 /* Vertical line */
 .line {
     width: 2px;
     background: #fff;
-    height: 100%; /* Full height to cover content */
+    height: 100%;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1;
 }
 
+/* Company logo styling */
+.logo {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    animation: fadeIn 1s ease-in-out forwards;
+    cursor: pointer;
+    left: 50%; /* Align horizontally with the line */
+    transform: translate(-50%, -50%); /* Center the logo on the line */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+
+.logo img {
+	width: 90%; /* Make the image take up the full width of the logo container */
+    height: 90%; /* Make the image take up the full height of the logo container */
+    object-fit: cover; /* Ensures the image scales correctly to cover the circle without distortion */
+    border-radius: 50%; /* Keeps the image within the circular shape */
+}
+
+.logo:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Adjust logo positions */
+.logo[data-position="top"] {
+    top: 15%;
+}
+
+.logo[data-position="bottom"] {
+    top: 55%;
+}
+
 /* Experience box styling */
 .experience-box {
-    width: 45%; /* Adjusted width for better alignment */
-    background: rgba(255, 255, 255, 0); /* Transparent background */
-    border: 2px solid white; /* White border */
-    color: white; /* Text color */
+    width: 50%;
+    background: transparent;
+    border: 2px solid transparent;
+    color: black;
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+    border-radius: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     position: relative;
-    margin: 30px 0; /* Space between each box */
-    opacity: 0; /* Initially hidden */
-    transition: all 0.8s ease-in-out; /* Smooth transition */
+    margin: 40px 0;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.8s ease-in-out;
+	margin-top: 20px; 
+    /* box-sizing: border-box; */
+}
+
+/* Dynamic card size based on content */
+.experience-box .card {
+    width: 100%;
+    height: auto;
+    transform-style: preserve-3d;
+    perspective: 1500px;
+    transition: transform 0.6s ease;
+    cursor: pointer;
+}
+
+.front,
+.back {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    overflow: hidden;
     box-sizing: border-box;
+}
+
+.back {
+    transform: rotateY(180deg);
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
 }
 
 /* Right-aligned box */
 .experience-box.right {
-    align-self: flex-end; /* Aligns the box to the right */
-    margin-left: 60px; /* Space between box and line */
-    transform: translateX(100%);
+    align-self: flex-end;
+    margin-left: 60px;
     text-align: left;
+    transform: translateX(100%);
+	left: 20px;
+	
 }
 
 /* Left-aligned box */
 .experience-box.left {
-    align-self: flex-start; /* Aligns the box to the left */
-    margin-right: 60px; /* Space between box and line */
-    transform: translateX(-100%);
+    align-self: flex-start;
+    margin-right: 60px;
     text-align: left;
+    transform: translateX(-100%);
+    top: 46%; /* Match the top position of the second logo */
+    position: absolute; /* Ensure alignment relative to the parent container */
+	left: -20px;
 }
 
-/* Make boxes visible when they are in view */
+/* Trigger sliding animation */
 .experience-box.in-view {
     opacity: 1;
-    transform: translateX(0); /* Slide into place */
+    transform: translateX(0);
+    transition: all 0.8s ease-in-out;
 }
 
-/* Hover effects for experience boxes */
+/* Hover effect */
 .experience-box:hover {
-    border-color: blue; /* Change border color on hover */
-    animation: wave 0.6s ease-in-out; /* Add wave animation */
+    background: rgba(7, 7, 7, 0.9);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
-/* Wave animation */
-@keyframes wave {
-    0%, 100% {
-        transform: translateY(0); /* Original position */
+/* Ensure the card flips on hover */
+.card {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.6s ease;
+    cursor: pointer;
+   
+}
+
+/* Flip the card when hovered */
+.experience-box:hover .card {
+    transform: rotateY(180deg);
+}
+
+/* Responsive Design for smaller screens */
+@media screen and (max-width: 768px) {
+    /* Ensure the vertical line is adjusted */
+    .line {
+        left: 50%; /* Keep the line centered */
     }
-    20% {
-        transform: translateY(-5px); /* Move up slightly */
+
+    /* Center-align logos on smaller screens */
+    .logo {
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
-    40% {
-        transform: translateY(5px); /* Move down slightly */
+
+    /* Stack the cards vertically and center-align */
+    .experience-box {
+        width: 50%;
+        margin: 20px auto; /* Center the boxes */
+        text-align: center; /* Center text inside the box */
+        transform: translateX(0); /* Reset translation */
+        position: static; /* Remove absolute positioning */
     }
-    60% {
-        transform: translateY(-5px); /* Move up slightly */
+
+    /* Remove extra margins for left/right-aligned cards */
+    .experience-box.right,
+    .experience-box.left {
+        margin-left: 0;
+        margin-right: 0;
     }
-    80% {
-        transform: translateY(5px); /* Move down slightly */
+	.card.flipped {
+		margin-top: 10px; /* Add spacing from the top */
+		margin-left: 20px; /* Add spacing from the line/logo */
+	}
+	.experience-box:first-child .card {
+		margin-top: 10px; /* Adjust as needed */
+		margin-left: 40px; /* Ensure adequate horizontal space */
+	}
+	.card {
+		transform-origin: center center; /* Flip around the center */
+	}
+	
+	
+
+    /* Adjust logo size for smaller screens */
+    .logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    /* Adjust text alignment inside cards for better readability */
+    .experience-box .card {
+        padding: 10px;
     }
 }
 
-@keyframes blink-cursor {
-    from, to {
-        border-color: transparent;
-    }
-    50% {
-        border-color: #98c593; /* Adjust color to match your theme */
-    }
-}
+
 #skills {
     background: url("../../images/skill1.jpg") center center/cover no-repeat;
     color: #fff;
@@ -2548,105 +2672,77 @@ input, select, textarea {
     padding: 50px 0;
 }
 
-#skills-container {
+.skills-container {
     display: flex;
-    flex-direction: column; /* Stack header and icons */
-    align-items: center; /* Center contents horizontally */
-    justify-content: flex-start; /* Start contents from the top */
-    width: 100%; /* Full width */
-    max-width: 1200px; /* Maximum width for large screens */
-    margin: 0 auto; /* Center horizontally */
-    padding: 20px; /* Add space inside the container */
-    box-sizing: border-box; /* Ensure padding is included in width */
-    overflow: visible; /* Ensure content is not clipped */
-    position: relative; /* Ensure proper stacking context */
-    opacity: 0; /* Start hidden */
-    transform: translateX(-100%); /* Start off-screen to the left */
-    animation: slideIn 0.8s ease forwards; /* Slide in animation */
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    padding: 40px;
 }
 
-.skills {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Adjust number of icons per row */
-    gap: 20px; /* Space between icons */
-    width: 100%; /* Full width of the container */
-    justify-content: center; /* Center align icons */
-    align-items: center;
-    padding: 20px; /* Prevent clipping */
+.skill {
+    text-align: center;
+    width: 120px;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-/* Icon size and responsiveness */
-.skill-icon {
-    width: 100px; /* Fixed icon size */
+.skill.in-view {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.circle {
+    position: relative;
+    width: 100px;
     height: 100px;
-    opacity: 0; /* Hidden initially */
-    animation: popIn 0.5s forwards;
-    animation-delay: calc(0.1s * var(--i));
-    transition: transform 0.3s ease, border 0.3s ease;
-    border: 2px solid transparent;
-    border-radius: 8px;
-    text-align: center; /* Centers icons */
+    border-radius: 50%;
+    background: #1f1f1f; /* Background color */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
 }
 
-.skill-icon img {
+.circle:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 255, 0.8); /* Blue shadow on hover */
+}
+
+.circle img {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+    z-index: 2;
+}
+
+.circle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Maintains aspect ratio */
+    border-radius: 50%;
+    border: 6px solid rgba(231, 226, 226, 0.868);
+
+    /* Conic gradient for progress */
+    -webkit-mask-image: conic-gradient(
+        white calc(var(--progress, 0) * 1%),
+        transparent calc(var(--progress, 0) * 1%) 100%
+    );
+    mask-image: conic-gradient(
+        white calc(var(--progress, 0) * 1%),
+        transparent calc(var(--progress, 0) * 1%) 100%
+    );
+
+    transition: mask-image 1.5s ease-in-out, -webkit-mask-image 1.5s ease-in-out;
 }
 
-/* Hover effect for icons */
-.skill-icon:hover {
-    transform: scale(1.2);
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: rgba(255, 255, 255, 0.3);
-    border: 2px solid white;
-}
-
-@media screen and (max-width: 768px) {
-    .skills {
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adjust for tablets */
-        gap: 15px;
-    }
-
-    #skills-container {
-        padding: 15px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .skills {
-        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Single-column for small screens */
-        gap: 10px;
-    }
-
-    #skills-container {
-        padding: 10px;
-    }
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(-100%); /* Initially off-screen */
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0); /* Fully visible */
-    }
-}
-
-@keyframes popIn {
-    0% {
-        opacity: 0;
-        transform: scale(0.5);
-    }
-    60% {
-        opacity: 1;
-        transform: scale(1.1);
-    }
-    100% {
-        transform: scale(1);
-    }
+.circle[data-progress] {
+    --progress: 0; /* Start at 0 */
 }
 
 
@@ -2688,15 +2784,5 @@ input, select, textarea {
     color: white; /* Text color set to white */
     padding: 2em; /* Adjust padding as needed */
 }
-
-
-
-
-
-
-
-
-
-
 
 
