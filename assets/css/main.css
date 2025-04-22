@@ -2566,234 +2566,127 @@ input, select, textarea {
 		
 
 	
-/* Container for the vertical line and experience boxes */
+/* Experience Section Styling */
 .experience-line {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    padding: 20px 0;
-    min-height: 220vh;
+  position: relative;
+  padding: 80px 0;
 }
 
-/* Vertical line */
 .line {
-    width: 2px;
-    background: #fff;
-    height: 100%;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
+  position: absolute;
+  width: 2px;
+  background-color: #fff;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-/* Company logo styling */
+.experience-entry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin-bottom: 120px;
+}
+
 .logo {
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    background: #fff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-    animation: fadeIn 1s ease-in-out forwards;
-    cursor: pointer;
-    left: 50%; /* Align horizontally with the line */
-    transform: translate(-50%, -50%); /* Center the logo on the line */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease-in-out;
+  width: 60px;
+  height: 60px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  cursor: pointer;
+  transition: transform 0.3s ease;
 }
-
 
 .logo img {
-	width: 90%; /* Make the image take up the full width of the logo container */
-    height: 90%; /* Make the image take up the full height of the logo container */
-    object-fit: cover; /* Ensures the image scales correctly to cover the circle without distortion */
-    border-radius: 50%; /* Keeps the image within the circular shape */
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
 }
 
 .logo:hover {
-    transform: translate(-50%, -50%) scale(1.1);
+  transform: scale(1.1);
 }
 
-/* Adjust logo positions */
-.logo-1[data-position="top"] {
-    top: 15%;
-}
-
-.logo-2[data-position="bottom"] {
-    top: 50%;
-}
-
-.logo-3[data-position="top"]{
-	top:85%;
-}
-
-
-
-/* Experience box styling */
 .experience-box {
-    width: 50%;
-    background: transparent;
-    border: 2px solid transparent;
-    color: black;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    position: relative;
-    margin: 40px 0;
-    opacity: 0;
-    transform: translateY(100%);
-    transition: all 0.8s ease-in-out;
-	margin-top: 20px; 
-	margin-bottom: 60px;
-    /* box-sizing: border-box; */
+  width: 50%;
+  margin-top: 30px;
+  padding: 35px;
+  border-radius: 15px;
+  background: transparent;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  position: relative;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.8s ease-in-out;
+  flex: 1;
+  max-width: 600px;
+  
 }
 
-/* Dynamic card size based on content */
-.experience-box .card {
-    width: 100%;
-    height: auto;
-    transform-style: preserve-3d;
-    perspective: 1500px;
-    transition: transform 0.6s ease;
-    cursor: pointer;
-	position: absolute;
+.experience-box.left {
+  align-self: flex-start;
+  transform: translateX(-100%);
+  order: -1;
+}
+.experience-box.right {
+	align-self: flex-end;
+	
+	order: -1;
+	
+  }
+.experience-box.in-view {
+  opacity: 1;
+  transform: translateX(0);
 }
 
-.front,
+.card {
+  transform-style: preserve-3d;
+  perspective: 1500px;
+  transition: transform 0.6s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.front, .back {
+  position: absolute;
+  width: 100%;
+  backface-visibility: hidden;
+  padding: 20px;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
 .back {
-    position: absolute;
-    width: 100%;
-    height: auto;
-    backface-visibility: hidden;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.95);
-    overflow: hidden;
-    box-sizing: border-box;
-}
-
-.back {
-    transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
 
 .card.flipped {
-    transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
 
-/* Right-aligned box */
-.experience-box.right {
-    align-self: flex-end;
-    margin-left: 60px;
-    text-align: left;
-    transform: translateX(100%);
-	left: 20px;
-	position:relative;
-	top:auto;
-	
-}
-.experience-box.right.cognizant-box{
-	position:absolute;
-	top:75%;
-	transform: translateX(80%);
-	/* left: 300px; */
-	
-}
-/* Left-aligned box */
-.experience-box.left {
-    align-self: flex-start;
-    margin-right: 60px;
-    text-align: left;
-    transform: translateX(-100%);
-    top: 40%; /* Match the top position of the second logo */
-    position: absolute; /* Ensure alignment relative to the parent container */
-	left: -60px;
-}
-
-/* Trigger sliding animation */
-.experience-box.in-view {
-    opacity: 1;
-    transform: translateX(0);
-    transition: all 0.8s ease-in-out;
-}
-
-/* Hover effect */
-.experience-box:hover {
-    background: rgba(7, 7, 7, 0.9);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-}
-
-/* Ensure the card flips on hover */
-.card {
-    transform-style: preserve-3d;
-    perspective: 1000px;
-    transition: transform 0.6s ease;
-    cursor: pointer;
-   
-}
-
-/* Flip the card when hovered */
 .experience-box:hover .card {
-    transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
 
-/* Responsive Design for smaller screens */
-@media screen and (max-width: 768px) {
-    /* Ensure the vertical line is adjusted */
-    .line {
-        left: 50%; /* Keep the line centered */
-    }
-
-    /* Center-align logos on smaller screens */
-    .logo {
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    /* Stack the cards vertically and center-align */
-    .experience-box {
-        width: 50%;
-        margin: 20px auto; /* Center the boxes */
-        text-align: center; /* Center text inside the box */
-        transform: translateX(0); /* Reset translation */
-        position: static; /* Remove absolute positioning */
-    }
-
-    /* Remove extra margins for left/right-aligned cards */
-    .experience-box.right,
-    .experience-box.left {
-        margin-left: 0;
-        margin-right: 0;
-    }
-	.card.flipped {
-		margin-top: 10px; /* Add spacing from the top */
-		margin-left: 20px; /* Add spacing from the line/logo */
-	}
-	.experience-box:first-child .card {
-		margin-top: 10px; /* Adjust as needed */
-		margin-left: 40px; /* Ensure adequate horizontal space */
-	}
-	.card {
-		transform-origin: center center; /* Flip around the center */
-	}
-	
-	
-
-    /* Adjust logo size for smaller screens */
-    .logo {
-        width: 50px;
-        height: 50px;
-    }
-
-    /* Adjust text alignment inside cards for better readability */
-    .experience-box .card {
-        padding: 10px;
-    }
+@media (max-width: 768px) {
+  .experience-box {
+    width: 90%;
+    transform: translateX(0);
+  }
+  .experience-box.left, .experience-box.right {
+    transform: translateX(0);
+  }
 }
+
 
 
 #skills {
