@@ -2323,9 +2323,10 @@ input, select, textarea {
 	
 	.handwriting-text {
 		font-family: 'Playfair Display', cursive; 
-		font-size: 3rem; /* Adjust for larger text */
+		font-size: 4rem; /* Adjust for larger text */
+		font-weight: bold;
 		stroke: #fff;
-		fill: transparent;
+		fill: #fff;
 		stroke-width: 2;
 		animation: handwriting 4s steps(60) infinite; /* Repeat indefinitely */
 	}
@@ -2343,7 +2344,7 @@ input, select, textarea {
 
 	/* Resume link styling */
 .resume-link {
-	font-family: 'Playfair Display', cursive;
+	/* font-family: 'Playfair Display', cursive; */
     color: #fff;
     text-decoration: none;
     font-size: 1.5rem;
@@ -2572,7 +2573,7 @@ input, select, textarea {
     align-items: center;
     position: relative;
     padding: 20px 0;
-    min-height: 100vh;
+    min-height: 220vh;
 }
 
 /* Vertical line */
@@ -2618,13 +2619,19 @@ input, select, textarea {
 }
 
 /* Adjust logo positions */
-.logo[data-position="top"] {
+.logo-1[data-position="top"] {
     top: 15%;
 }
 
-.logo[data-position="bottom"] {
-    top: 55%;
+.logo-2[data-position="bottom"] {
+    top: 50%;
 }
+
+.logo-3[data-position="top"]{
+	top:85%;
+}
+
+
 
 /* Experience box styling */
 .experience-box {
@@ -2641,6 +2648,7 @@ input, select, textarea {
     transform: translateY(100%);
     transition: all 0.8s ease-in-out;
 	margin-top: 20px; 
+	margin-bottom: 60px;
     /* box-sizing: border-box; */
 }
 
@@ -2652,6 +2660,7 @@ input, select, textarea {
     perspective: 1500px;
     transition: transform 0.6s ease;
     cursor: pointer;
+	position: absolute;
 }
 
 .front,
@@ -2683,18 +2692,26 @@ input, select, textarea {
     text-align: left;
     transform: translateX(100%);
 	left: 20px;
+	position:relative;
+	top:auto;
 	
 }
-
+.experience-box.right.cognizant-box{
+	position:absolute;
+	top:75%;
+	transform: translateX(80%);
+	/* left: 300px; */
+	
+}
 /* Left-aligned box */
 .experience-box.left {
     align-self: flex-start;
     margin-right: 60px;
     text-align: left;
     transform: translateX(-100%);
-    top: 46%; /* Match the top position of the second logo */
+    top: 40%; /* Match the top position of the second logo */
     position: absolute; /* Ensure alignment relative to the parent container */
-	left: -20px;
+	left: -60px;
 }
 
 /* Trigger sliding animation */
