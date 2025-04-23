@@ -268,27 +268,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-// Toggle box visibility with slide effect
-function toggleBox(logo) {
-	const box = logo.nextElementSibling;
-	box.classList.toggle("in-view");
-  }
-  
-  // Intersection Observer for initial slide-in animation
-  const observer = new IntersectionObserver((entries) => {
-	entries.forEach((entry) => {
-	  if (entry.isIntersecting) {
-		entry.target.classList.add("in-view");
-	  }
-	});
-  }, {
-	threshold: 0.3
-  });
-  
-  // Apply observer to all boxes
-  const experienceBoxes = document.querySelectorAll(".experience-box");
-  experienceBoxes.forEach((box) => observer.observe(box));
-  
+document.addEventListener("DOMContentLoaded", () => {
+    // Function to toggle visibility of the experience box
+    document.querySelectorAll(".logo").forEach((logo) => {
+        logo.addEventListener("click", () => {
+            const position = logo.getAttribute("data-position");
+            const targetBox = document.querySelector(`.experience-box.${position === "top" ? "right" : "left"}`);
+
+            // Toggle visibility of the corresponding experience box
+            if (targetBox.classList.contains("in-view")) {
+                targetBox.classList.remove("in-view"); // Hide the box
+            } else {
+                targetBox.classList.add("in-view"); // Show the box
+            }
+        });
+    });
+
+    // Function to check if an element is in the viewport
+    function isElementInViewport(el) {
+        const rect = el.getBoundingClientRect();
+        return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.bottom >= 0
+        );
+    }
+
+    // Function to add 'in-view' class when elements are in the viewport
+    function handleScroll() {
+        const boxes = document.querySelectorAll(".experience-box");
+        boxes.forEach((box) => {
+            if (isElementInViewport(box)) {
+                box.classList.add("in-view"); // Trigger sliding animation
+            } else {
+                // Optionally remove class when out of view
+                box.classList.remove("in-view");
+            }
+        });
+    }
+
+    // Attach scroll listener
+    window.addEventListener("scroll", handleScroll);
+    // Call handleScroll on initial load to check elements already in view
+    handleScroll();
+});
 
 
 // Function to check if an element is in the viewport
@@ -311,7 +333,21 @@ function isElementInViewport(el) {
 
 // Function to add 'in-view' class when elements are in the viewport
 
+function handleScroll() {
 
+    const boxes = document.querySelectorAll('.experience-box');
+
+    boxes.forEach(box => {
+
+        if (isElementInViewport(box)) {
+
+            box.classList.add('in-view'); // Trigger sliding animation
+
+        }
+
+    });
+
+}
 
 // Add scroll event listener to the window
 window.addEventListener('scroll', handleScroll);

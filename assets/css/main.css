@@ -2449,7 +2449,9 @@ input, select, textarea {
 		background-attachment: fixed, fixed;
 		background-position: top left, center center;
 		background-size: contain;
+		
 	}
+	
 	#work {
 		background: url("../../images/skill2.avif");
 		background-size: 256px 256px, cover;
@@ -2588,6 +2590,7 @@ input, select, textarea {
   align-items: center;
   position: relative;
   margin-bottom: 120px;
+  overflow: visible;
 }
 
 .logo {
@@ -2627,6 +2630,7 @@ input, select, textarea {
   transition: all 0.8s ease-in-out;
   flex: 1;
   max-width: 600px;
+  overflow: visible;
   
 }
 
@@ -2653,6 +2657,10 @@ input, select, textarea {
   cursor: pointer;
   position: relative;
 }
+.hidden-card {
+	display: none !important;
+}
+
 
 .front, .back {
   position: absolute;
@@ -2663,29 +2671,43 @@ input, select, textarea {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   border-radius: 12px;
   box-sizing: border-box;
+  overflow: auto;
 }
 
 .back {
   transform: rotateY(180deg);
+  max-height: none;
 }
 
 .card.flipped {
   transform: rotateY(180deg);
 }
 
-.experience-box:hover .card {
-  transform: rotateY(180deg);
-}
+.card:hover {
+	transform: rotateY(180deg);
+  }
 
 @media (max-width: 768px) {
-  .experience-box {
-    width: 90%;
-    transform: translateX(0);
+  .experience-entry {
+    flex-direction: column;
+    align-items: center;
   }
-  .experience-box.left, .experience-box.right {
-    transform: translateX(0);
+
+  .experience-box {
+    width: 90% !important;
+    max-width: 100%;
+    margin-top: 20px;
+  }
+
+  .line {
+    left: 5%;
+  }
+
+  .logo {
+    margin: 10px 0;
   }
 }
+
 
 
 
